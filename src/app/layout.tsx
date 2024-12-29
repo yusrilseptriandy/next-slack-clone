@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
-import localFont from 'next/font/local';
+import type { Metadata } from 'next';
 import './globals.css';
 import { Manrope } from 'next/font/google';
+import { ConvexClientProvider } from '@/components/convex-client-provider';
 
 const manrope = Manrope({
   subsets: ['latin'], // Pilih subset sesuai kebutuhan
-  weight: ['400', '500', '800'], // Pilih berat font yang diinginkan
+  weight: ['500', '800'], // Pilih berat font yang diinginkan
 });
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -19,7 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={manrope.className}>{children}</body>
+      <body className={manrope.className}>
+        <ConvexClientProvider>{children}</ConvexClientProvider>
+      </body>
     </html>
   );
 }

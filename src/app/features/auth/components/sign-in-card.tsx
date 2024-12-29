@@ -13,7 +13,8 @@ import { Separator } from '@/components/ui/separator';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { SignInFlow } from '../types';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { FiAlertTriangle } from 'react-icons/fi';
 
 interface SignInCardProps {
   setState: (state: SignInFlow) => void;
@@ -23,9 +24,24 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
   const { signIn } = useAuthActions();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState('');
+
+  const onPasswordSignIn = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setPending(true);
+    signIn('password', { email, password, flow: 'signIn' })
+      .catch(() => {
+        setError('Invalid email or password');
+      })
+      .finally(() => {
+        setPending(false);
+      });
+  };
 
   const handleSignInProvider = (values: 'google' | 'github') => {
-    signIn(values);
+    setPending(true);
+    signIn(values).finally(() => setPending(false));
   };
 
   return (
@@ -39,10 +55,17 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
         </CardDescription>
       </CardHeader>
 
+      {!!error && (
+        <div className="bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6">
+          <FiAlertTriangle className="size-5" />
+          <p>{error}</p>
+        </div>
+      )}
+
       <CardContent className="space-y-5 px-0 pb-0">
-        <form className="space-y-2.5">
+        <form onSubmit={onPasswordSignIn} className="space-y-2.5">
           <Input
-            disabled={false}
+            disabled={pending}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
@@ -52,7 +75,7 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
           />
 
           <Input
-            disabled={false}
+            disabled={pending}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="password"
@@ -64,7 +87,7 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
           <Button
             className="w-full font-semibold"
             size={'lg'}
-            disabled={false}
+            disabled={pending}
             type="submit"
             variant={'primary'}
           >
@@ -76,8 +99,8 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
 
         <div className="flex flex-col gap-y-2.5">
           <Button
-            disabled={false}
-            onClick={() => {}}
+            disabled={pending}
+            onClick={() => handleSignInProvider('google')}
             variant={'outline'}
             size={'lg'}
             className="w-full relative"
@@ -87,7 +110,7 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
           </Button>
 
           <Button
-            disabled={false}
+            disabled={pending}
             onClick={() => handleSignInProvider('github')}
             variant={'outline'}
             size={'lg'}

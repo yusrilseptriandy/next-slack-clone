@@ -14,6 +14,7 @@ import { SignInFlow } from '../types';
 import { useState } from 'react';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { useAuthActions } from '@convex-dev/auth/react';
+import { Loader } from 'lucide-react';
 
 interface SignUpCardProps {
   setState: (state: SignInFlow) => void;
@@ -115,7 +116,11 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
             type="submit"
             variant={'primary'}
           >
-            Continue
+            {pending ? (
+              <Loader className="size-5 text-muted-foreground animate-spin" />
+            ) : (
+              'Sign up'
+            )}
           </Button>
         </form>
 

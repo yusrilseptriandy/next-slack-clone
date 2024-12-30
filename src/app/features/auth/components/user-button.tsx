@@ -7,7 +7,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import { Button } from '@/components/ui/button';
 import { PiSpinnerGapBold } from 'react-icons/pi';
 import { useAuthActions } from '@convex-dev/auth/react';
 import { useState } from 'react';
@@ -42,7 +41,7 @@ export const UserButton = () => {
     return null;
   }
 
-  const { name, email, image } = data;
+  const { name, image } = data;
   const avatarFallback = name!.charAt(0).toUpperCase();
 
   console.log('data', data);
@@ -52,7 +51,9 @@ export const UserButton = () => {
       <DropdownMenuTrigger>
         <Avatar className="size-10 hover:opacity-75 transition">
           <AvatarImage src={image} alt={name} />
-          <AvatarFallback>{avatarFallback}</AvatarFallback>
+          <AvatarFallback className="bg-sky-500 text-white">
+            {avatarFallback}
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-60" align="center" side="right">

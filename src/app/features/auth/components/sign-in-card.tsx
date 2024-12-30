@@ -15,6 +15,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { SignInFlow } from '../types';
 import React, { useState } from 'react';
 import { FiAlertTriangle } from 'react-icons/fi';
+import { Loader } from 'lucide-react';
 
 interface SignInCardProps {
   setState: (state: SignInFlow) => void;
@@ -91,7 +92,11 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
             type="submit"
             variant={'primary'}
           >
-            Continue
+            {pending ? (
+              <Loader className="size-5 text-muted-foreground animate-spin" />
+            ) : (
+              'Sign in'
+            )}
           </Button>
         </form>
 

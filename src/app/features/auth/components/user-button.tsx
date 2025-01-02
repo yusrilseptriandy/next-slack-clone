@@ -12,7 +12,7 @@ import { useAuthActions } from '@convex-dev/auth/react';
 import { useState } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useCurrentUser } from '../hooks/use-current-user';
+import { useCurrentUser } from '../api/use-current-user';
 import { Loader, LogOut } from 'lucide-react';
 
 export const UserButton = () => {
@@ -43,8 +43,6 @@ export const UserButton = () => {
 
   const { name, image } = data;
   const avatarFallback = name!.charAt(0).toUpperCase();
-
-  console.log('data', data);
 
   return (
     <DropdownMenu>

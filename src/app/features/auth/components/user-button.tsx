@@ -55,7 +55,11 @@ export const UserButton = () => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-60" align="center" side="right">
-        <DropdownMenuItem onClick={handleSignOut} disabled={loading}>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={handleSignOut}
+          disabled={loading}
+        >
           <LogOut />
           {loading ? <PiSpinnerGapBold className="animate-spin" /> : 'Sign Out'}
         </DropdownMenuItem>

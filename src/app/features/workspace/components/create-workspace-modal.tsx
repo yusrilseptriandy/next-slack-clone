@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import {
   Dialog,
   DialogContent,
@@ -9,8 +10,11 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useCreateWorkspace } from '../api/use-create-workspace';
 import React, { useState } from 'react';
+import { Loader } from 'lucide-react';
+import { toast } from 'sonner';
 
 export const CreateWorkspaceModal = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useCreateWorkspaceModal();
   const [name, setName] = useState('');
 
@@ -18,6 +22,7 @@ export const CreateWorkspaceModal = () => {
 
   const handleClose = () => {
     setIsOpen(false);
+    setName('');
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -26,8 +31,10 @@ export const CreateWorkspaceModal = () => {
     mutate(
       { name },
       {
-        onSuccess(data) {
-          console.log('Workspace created:', data);
+        onSuccess(id) {
+          toast.success('Workspace created successfully');
+          router.push(`/workspace/${id}`);
+          handleClose();
         },
       }
     );
@@ -52,7 +59,14 @@ export const CreateWorkspaceModal = () => {
           />
           <div className="flex justify-end">
             <Button variant={'primary'} disabled={isPending}>
-              {isPending ? 'Creating...' : 'Create'}
+              {isPending ? (
+                <>
+                  Creating{' '}
+                  <Loader className="text-muted-foreground size-5 animate-spin" />
+                </>
+              ) : (
+                'Create'
+              )}
             </Button>
           </div>
         </form>

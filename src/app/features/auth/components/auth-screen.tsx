@@ -24,7 +24,7 @@ export function AuthScreen() {
   }, [loading]);
 
   return (
-    <div className="h-full flex items-center justify-center bg-[#0c2242]">
+    <div className="h-full flex items-center justify-center bg-[#611f69]">
       {loading ? (
         <PiSpinnerGapBold className="animate-spin text-xl text-gray-500" />
       ) : state === 'SignIn' ? (

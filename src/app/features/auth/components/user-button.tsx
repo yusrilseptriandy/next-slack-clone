@@ -54,7 +54,11 @@ export const UserButton = () => {
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-60" align="center" side="right">
+      <DropdownMenuContent
+        className="w-60 shadow-lg"
+        align="center"
+        side="right"
+      >
         <DropdownMenuItem
           className="cursor-pointer"
           onClick={handleSignOut}

@@ -2,6 +2,13 @@ import { v } from 'convex/values';
 import { mutation, query } from './_generated/server';
 import { getAuthUserId } from '@convex-dev/auth/server';
 
+const generateCode = () => {
+  return Array.from(
+    { length: 6 },
+    () => '0123456789abcdevghijklmnopqrstuvwxyz'[Math.floor(Math.random() * 36)]
+  ).join('');
+};
+
 export const create = mutation({
   args: {
     name: v.string(),
@@ -14,8 +21,7 @@ export const create = mutation({
       throw new Error('Client is not authenticated!');
     }
 
-    //TODO : Add workspace to the database
-    const joinCode = '123456';
+    const joinCode = generateCode();
 
     const workspaceId = await ctx.db.insert('workspace', {
       name: args.name,
@@ -72,6 +78,15 @@ export const getById = query({
     if (userId === null) {
       throw new Error('Unauthorized');
     }
+
+    const member = await ctx.db
+      .query('members')
+      .withIndex('by_workspace_id_user_id', (q) =>
+        q.eq('workspaceId', args.id).eq('userId', userId)
+      )
+      .unique();
+
+    if (!member) return null;
 
     return await ctx.db.get(args.id);
   },

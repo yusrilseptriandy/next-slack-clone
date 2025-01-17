@@ -17,6 +17,10 @@ export const create = mutation({
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
 
+    if (!args.name) {
+      throw new Error('Workspace name is required!');
+    }
+
     if (userId === null) {
       throw new Error('Client is not authenticated!');
     }

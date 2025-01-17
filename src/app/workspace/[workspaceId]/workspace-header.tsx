@@ -9,7 +9,7 @@ import { Doc } from '../../../../convex/_generated/dataModel';
 import { ChevronDown, Dot, ListFilter, SquarePen } from 'lucide-react';
 import { getWorkspaceColor } from '@/utils/get-workspace-color';
 import { Separator } from '@/components/ui/separator';
-import { Hint } from '@/components/hint';
+import { Hint } from '@/components/Hint';
 
 interface WorkspaceHeaderProps {
   workspace: Doc<'workspace'>;

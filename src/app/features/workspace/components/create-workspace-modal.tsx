@@ -36,6 +36,9 @@ export const CreateWorkspaceModal = () => {
           router.push(`/workspace/${id}`);
           handleClose();
         },
+        onError() {
+          toast.error('Workspace is required!');
+        },
       }
     );
   };
@@ -52,7 +55,6 @@ export const CreateWorkspaceModal = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="h-12 bg-slate-50 shadow-none"
-            required
             autoFocus
             minLength={3}
             placeholder="Workspace name e.g. 'My Project', 'Team Workspace', etc."

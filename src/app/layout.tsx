@@ -6,6 +6,7 @@ import { ConvexAuthNextjsServerProvider } from '@convex-dev/auth/nextjs/server';
 import { ConvexClientProvider } from '@/components/convex-client-provider';
 import { Modals } from '@/components/modals';
 import { Toaster } from '@/components/ui/sonner';
+import { JotaiProvider } from '@/components/jotai-provider';
 
 const manrope = Manrope({
   subsets: ['latin'], // Pilih subset sesuai kebutuhan
@@ -26,9 +27,11 @@ export default function RootLayout({
       <html lang="en">
         <body className={manrope.className}>
           <ConvexClientProvider>
-            <Modals />
-            <Toaster className={manrope.className} />
-            {children}
+            <JotaiProvider>
+              <Modals />
+              <Toaster className={manrope.className} />
+              {children}
+            </JotaiProvider>
           </ConvexClientProvider>
         </body>
       </html>

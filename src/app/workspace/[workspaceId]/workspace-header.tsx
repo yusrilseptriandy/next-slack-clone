@@ -36,7 +36,7 @@ export const WorkspaceHeader = ({
         <DropdownMenuContent side="bottom" align="start" className="w-64">
           <DropdownMenuItem className="capitalize cursor-pointer">
             <div
-              className="size-9 relative overflow-hidden text-white font-semibold text-lg rounded-md flex justify-center items-center mr-2 truncate "
+              className="size-9 min-w-16 relative overflow-hidden text-white font-semibold text-lg rounded-md flex justify-center items-center mr-2 truncate "
               style={{ backgroundColor: getWorkspaceColor(workspace.name) }}
             >
               {workspace.name.charAt(0).toUpperCase() +

@@ -6,9 +6,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Doc } from '../../../../convex/_generated/dataModel';
-import { ChevronDown, Dot } from 'lucide-react';
+import { ChevronDown, Dot, ListFilter, SquarePen } from 'lucide-react';
 import { getWorkspaceColor } from '@/utils/get-workspace-color';
 import { Separator } from '@/components/ui/separator';
+import { Hint } from '@/components/hint';
 
 interface WorkspaceHeaderProps {
   workspace: Doc<'workspace'>;
@@ -35,7 +36,7 @@ export const WorkspaceHeader = ({
         <DropdownMenuContent side="bottom" align="start" className="w-64">
           <DropdownMenuItem className="capitalize cursor-pointer">
             <div
-              className="size-9 relative overflow-hidden text-white font-semibold text-lg rounded-md flex justify-center items-center mr-2"
+              className="size-9 relative overflow-hidden text-white font-semibold text-lg rounded-md flex justify-center items-center mr-2 truncate "
               style={{ backgroundColor: getWorkspaceColor(workspace.name) }}
             >
               {workspace.name.charAt(0).toUpperCase() +
@@ -66,6 +67,19 @@ export const WorkspaceHeader = ({
           )}
         </DropdownMenuContent>
       </DropdownMenu>
+      <div className="flex items-center gap-0.5">
+        <Hint label="Filter conversations" side="bottom">
+          <Button variant={'transparent'}>
+            <ListFilter className="size-4" />
+          </Button>
+        </Hint>
+
+        <Hint label="New message" side="bottom">
+          <Button variant={'transparent'}>
+            <SquarePen className="size-4" />
+          </Button>
+        </Hint>
+      </div>
     </div>
   );
 };

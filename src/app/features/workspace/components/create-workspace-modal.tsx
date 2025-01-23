@@ -37,7 +37,7 @@ export const CreateWorkspaceModal = () => {
           handleClose();
         },
         onError() {
-          toast.error('Workspace is required!');
+          toast.error('Workspace name is required!');
         },
       }
     );

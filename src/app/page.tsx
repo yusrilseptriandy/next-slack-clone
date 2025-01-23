@@ -6,6 +6,7 @@ import { UserButton } from './features/auth/components/user-button';
 import { useGetWorkspaces } from './features/workspace/api/use-get-workspaces';
 import { useCreateWorkspaceModal } from './features/workspace/store/use-create-workspace-modal';
 import { useRouter } from 'next/navigation';
+import { Loader } from 'lucide-react';
 
 export default function Home() {
   const router = useRouter();
@@ -26,7 +27,10 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Home</h1>
+      <div className="flex gap-3">
+        <Loader className="size-5 text-muted-foreground animate-spin" />
+        <h1>Mengalihkan...</h1>
+      </div>
       <UserButton />
     </div>
   );

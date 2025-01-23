@@ -2,7 +2,6 @@
 
 
 import { useEffect, useMemo } from 'react';
-import { UserButton } from './features/auth/components/user-button';
 import { useGetWorkspaces } from './features/workspace/api/use-get-workspaces';
 import { useCreateWorkspaceModal } from './features/workspace/store/use-create-workspace-modal';
 import { useRouter } from 'next/navigation';
@@ -31,7 +30,6 @@ export default function Home() {
         <Loader className="size-5 text-muted-foreground animate-spin" />
         <h1>Mengalihkan...</h1>
       </div>
-      <UserButton />
     </div>
   );
 }
